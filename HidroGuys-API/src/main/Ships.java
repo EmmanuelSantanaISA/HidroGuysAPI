@@ -54,6 +54,24 @@ public class Ships {
         return farms;
     }
 
+    public Ship get(int id) {
+        String urlString = conf.getURL() + path + "/" + id + "?";
+        URL url;
+        InputStream is;
+        Ship farm = null;
+        try {
+            url = new URL(urlString);
+            URLConnection conn = url.openConnection();
+            is = conn.getInputStream();
+            farm = jsonToObjectOne(HidroAPI.inputStreamToString(is));
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(HidroAPI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(HidroAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return farm;
+    }
+
     public void add(Ship newFarm) {
         try {
 
@@ -89,9 +107,16 @@ public class Ships {
 
     private List<Ship> jsonToObject(String json) {
         Gson gson = new Gson();
-        Type collectionType = new TypeToken<List<Farm>>() {
+        Type collectionType = new TypeToken<List<Ship>>() {
         }.getType();
         List<Ship> list = gson.fromJson(json, collectionType);
         return list;
+    }
+
+    private Ship jsonToObjectOne(String json) {
+        Gson gson = new Gson();
+
+        Ship farm = gson.fromJson(json, Ship.class);
+        return farm;
     }
 }

@@ -42,6 +42,14 @@ public class HidroAPI {
             return null;
         }
     }
+        public Lines getLines() {
+         if (conf != null) {
+            return new Lines(conf);
+        } else {
+            System.out.println("HidroAPI not configured!");
+            return null;
+        }
+    }
 
     public static String inputStreamToString(InputStream is) {
         StringBuilder sb = new StringBuilder();

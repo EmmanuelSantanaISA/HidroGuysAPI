@@ -7,6 +7,7 @@ package main;
 
 import java.util.List;
 import pojo.Farm;
+import pojo.Line;
 import pojo.Ship;
 
 /**
@@ -27,11 +28,25 @@ public class HidroAPITest {
 
         List<Farm> farmsList = api.getFarms().getAll();
         for (Farm farm : farmsList) {
-            System.out.println("Farm ID: " + farm.getStartDate());
+            System.out.println("Farm ID: " + farm.getFarmName());
         }
         List<Ship> shipsList = api.getShips().getAll();
         for (Ship ship : shipsList) {
-            System.out.println("Ship ID: " + ship.getStartDate());
+            System.out.println("Ship ID: " + ship.getShipName());
         }
+        
+        List<Line> lineList = api.getLines().getAll();
+        for (Line line : lineList) {
+            System.out.println("Line Name: " + line.getLineName());
+        }
+        
+        Farm farm = api.getFarms().get(1);
+        System.out.println("ONE FARM: " + farm.getFarmName());
+        
+        Ship ship = api.getShips().get(5);
+        System.out.println("ONE SHIP: " + ship.getShipName());
+        
+        Line line = api.getLines().get(3);
+        System.out.println("ONE LINE: " + line.getLineName());
     }
 }
