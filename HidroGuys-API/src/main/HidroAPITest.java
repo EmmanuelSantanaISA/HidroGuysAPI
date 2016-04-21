@@ -24,15 +24,14 @@ public class HidroAPITest {
         System.out.println("URL: " + conf.getURL());
 
         HidroAPI api = new HidroAPI(conf);
-        //kkk
 
         List<Farm> farmsList = api.getFarms().getAll();
         for (Farm farm : farmsList) {
             System.out.println("Farm ID: " + farm.getStartDate());
         }
-//        List<Ship> shipsList = api.getShips().getAll();
-//        for (Ship ship : shipsList) {
-//            System.out.println("Ship ID: " + ship.getStartDate());
-//        }
+        List<Ship> shipsList = api.getShips().getAll();
+        for (Ship ship : shipsList) {
+            System.out.println("Ship ID: " + ship.getStartDate());
+        }
     }
 }
