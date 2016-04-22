@@ -20,44 +20,45 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pojo.Farm;
+import pojo.Line;
+import pojo.Reader;
 
 /**
  *
  * @author emman
  */
-public class Farms {
+public class Readers {
 
     private final HidroConfig conf;
-    private final String path = "farms";
+    private final String path = "readers";
 
-    public Farms(HidroConfig conf) {
+    public Readers(HidroConfig conf) {
         this.conf = conf;
     }
 
-    public List<Farm> getAll() {
+    public List<Reader> getAll() {
         String urlString = conf.getURL() + path;
         URL url;
         InputStream is;
-        List<Farm> farms = null;
+        List<Reader> list = null;
         try {
             url = new URL(urlString);
             URLConnection conn = url.openConnection();
             is = conn.getInputStream();
-            farms = jsonToObject(HidroAPI.inputStreamToString(is));
+            list = jsonToObject(HidroAPI.inputStreamToString(is));
         } catch (MalformedURLException ex) {
             Logger.getLogger(HidroAPI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(HidroAPI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return farms;
+        return list;
     }
 
-    public Farm get(int id) {
+    public Reader get(int id) {
         String urlString = conf.getURL() + path + "/" + id + "?";
         URL url;
         InputStream is;
-        Farm farm = null;
+        Reader farm = null;
         try {
             url = new URL(urlString);
             URLConnection conn = url.openConnection();
@@ -71,8 +72,9 @@ public class Farms {
         return farm;
     }
 
-    public void add(Farm newFarm) {
+    public void add(Line newEntity) {
         try {
+
             URL url = new URL(conf.getURL() + path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
@@ -81,8 +83,7 @@ public class Farms {
 
             String input;
             Gson gson = new Gson();
-            input = gson.toJson(newFarm);
-            input = "{\"farmId\":1,\"farmLocation\":\"Zapopan\",\"farmName\":\"Buenavista\"";
+            input = gson.toJson(newEntity);
             OutputStream os = conn.getOutputStream();
             os.write(input.getBytes());
             os.flush();
@@ -104,18 +105,18 @@ public class Farms {
         }
     }
 
-    private List<Farm> jsonToObject(String json) {
+    private List<Reader> jsonToObject(String json) {
         Gson gson = new Gson();
-        Type collectionType = new TypeToken<List<Farm>>() {
+        Type collectionType = new TypeToken<List<Reader>>() {
         }.getType();
-        List<Farm> farms = gson.fromJson(json, collectionType);
-        return farms;
+        List<Reader> list = gson.fromJson(json, collectionType);
+        return list;
     }
 
-    private Farm jsonToObjectOne(String json) {
+    private Reader jsonToObjectOne(String json) {
         Gson gson = new Gson();
 
-        Farm farm = gson.fromJson(json, Farm.class);
+        Reader farm = gson.fromJson(json, Reader.class);
         return farm;
     }
 }

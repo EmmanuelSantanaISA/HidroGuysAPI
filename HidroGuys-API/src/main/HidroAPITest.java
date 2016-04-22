@@ -8,6 +8,7 @@ package main;
 import java.util.List;
 import pojo.Farm;
 import pojo.Line;
+import pojo.Reader;
 import pojo.Ship;
 
 /**
@@ -40,6 +41,11 @@ public class HidroAPITest {
             System.out.println("Line Name: " + line.getLineName());
         }
         
+        List<Reader> readerList = api.getReaders().getAll();
+        for (Reader reader : readerList) {
+            System.out.println("Reader Name: " + reader.getReaderName());
+        }
+        
         Farm farm = api.getFarms().get(1);
         System.out.println("ONE FARM: " + farm.getFarmName());
         
@@ -48,5 +54,8 @@ public class HidroAPITest {
         
         Line line = api.getLines().get(3);
         System.out.println("ONE LINE: " + line.getLineName());
+        
+        Reader reader = api.getReaders().get(3);
+        System.out.println("ONE READER: " + reader.getReaderName());
     }
 }

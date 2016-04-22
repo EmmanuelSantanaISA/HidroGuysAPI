@@ -35,16 +35,26 @@ public class HidroAPI {
     }
 
     public Ships getShips() {
-         if (conf != null) {
+        if (conf != null) {
             return new Ships(conf);
         } else {
             System.out.println("HidroAPI not configured!");
             return null;
         }
     }
-        public Lines getLines() {
-         if (conf != null) {
+
+    public Lines getLines() {
+        if (conf != null) {
             return new Lines(conf);
+        } else {
+            System.out.println("HidroAPI not configured!");
+            return null;
+        }
+    }
+
+    public Readers getReaders() {
+        if (conf != null) {
+            return new Readers(conf);
         } else {
             System.out.println("HidroAPI not configured!");
             return null;
